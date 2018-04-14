@@ -2,19 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="8dp">
 
-    <ListView android:id="@id/android:list"
+    <TextView
+        android:id="@+id/news_section_text_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="#00FF00"
-        android:layout_weight="1"
-        android:drawSelectorOnTop="false"/>
+        android:layout_height="wrap_content"
+        android:text="section"/>
 
-    <TextView android:id="@id/android:empty"
+    <TextView
+        android:id="@+id/news_title_text_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FF0000"
-        android:text="No data"/>
+        android:layout_height="wrap_content"
+        android:text="Title"/>
+
+    <TextView
+        android:id="@+id/news_date_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date"/>
+
 </LinearLayout>

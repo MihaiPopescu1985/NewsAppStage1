@@ -20,8 +20,8 @@ public class News {
         mUrl = url;
     }
 
-    public String getSectionName() {return mSectionName;}
-    public String getPublicationDate() {return mPublicationDate;}
-    public String getTitle() {return mTitle;}
-    public String getUrl() {return mUrl;}
+    public String getNewsSectionName() {return mSectionName;}
+    public String getNewsPublicationDate() {return mPublicationDate;}
+    public String getNewsTitle() {return mTitle;}
+    public String getNewsUrl() {return mUrl;}
 }
