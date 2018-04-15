@@ -29,7 +29,7 @@ public class NewsListFragment extends ListFragment
         super.onListItemClick(l, v, position, id);
 
         //If a news is tapped, then an intent will open the link of the news
-        News news  = (News) getListView().getItemAtPosition(position);
+        News news = (News) getListView().getItemAtPosition(position);
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(news.getNewsUrl())));
     }
 
@@ -73,10 +73,20 @@ public class NewsListFragment extends ListFragment
 
     @Override
     public void onLoadFinished(Loader<String> loader, String data) {
-        if (data.matches(getString(R.string.url_error)) || data.matches(getString(R.string.download_error)))
-            setEmptyText(data);
-        else
+
+        if (data.matches(getString(R.string.url_error)))
+            setEmptyText("Internal error, please restart the app.\n" +
+                    "If the error persists, \n" +
+                    "please consider reinstalling the app.");
+
+        if (data.matches(getString(R.string.download_error)))
+            setEmptyText("Please verify your internet connection\n" +
+                    " and restart the app.");
+
+        if (!data.matches(getString(R.string.url_error)) &&
+                !data.matches(getString(R.string.download_error)))
             extractNews(data);
+
         mNewsListAdapter.addAll(mNewsList);
     }
 
@@ -85,17 +95,17 @@ public class NewsListFragment extends ListFragment
 
     }
 
-    private void extractNews(String data){
+    private void extractNews(String data) {
 
         try {
             JSONObject baseJsonObject = new JSONObject(data);
             JSONObject rootJsonObject = baseJsonObject.getJSONObject("response");
             JSONArray newsJsonArray = rootJsonObject.getJSONArray("results");
 
-            for (int i = 0; i < newsJsonArray.length(); i++){
+            for (int i = 0; i < newsJsonArray.length(); i++) {
 
                 JSONObject currentNews = newsJsonArray.getJSONObject(i);
-                mNewsList.add( new News(
+                mNewsList.add(new News(
                         currentNews.getString("sectionName"),
                         currentNews.getString("webPublicationDate"),
                         currentNews.getString("webTitle"),
