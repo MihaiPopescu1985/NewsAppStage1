@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">NewsAppStage1</string>
+    <string name="url_error">Url error !</string>
+    <string name="download_error">Downloading error !</string>
 </resources>

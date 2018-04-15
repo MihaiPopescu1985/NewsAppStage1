@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.Inflater;
 
@@ -19,9 +20,9 @@ import java.util.zip.Inflater;
  * Created by Mihai on 12.04.2018.
  */
 
-public class NewsListAdapter extends ArrayAdapter {
+public class NewsListAdapter extends ArrayAdapter<News> {
 
-    public NewsListAdapter(@NonNull Context context, int resource, News[] newsList) {
+    public NewsListAdapter(@NonNull Context context, int resource, ArrayList<News> newsList) {
         super(context, resource, newsList);
     }
 
@@ -29,10 +30,10 @@ public class NewsListAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        News news = (News) getItem(position);
+        News news = getItem(position);
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        if (convertView == null){
+        if (convertView == null) {
             convertView = inflater.inflate(R.layout.item_list, null);
         }
         TextView textView = convertView.findViewById(R.id.news_section_text_view);

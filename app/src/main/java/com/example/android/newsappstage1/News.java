@@ -15,7 +15,7 @@ public class News {
                  String title, String url){
 
         mSectionName = sectionName;
-        mPublicationDate = publicationDate;
+        mPublicationDate = publicationDate.substring(0, 10);
         mTitle = title;
         mUrl = url;
     }
