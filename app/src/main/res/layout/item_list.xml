@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/news_section_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="section"/>
+        style="@style/ListItemsStyle"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/news_title_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Title"/>
+        style="@style/ListItemsStyle"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/news_date_text_view"
+        style="@style/ListItemsStyle"
+        android:gravity="end"
+        android:textAlignment="viewEnd" />
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Date"/>
+        android:layout_height="2dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:background="@android:color/black" />
 
 </LinearLayout>

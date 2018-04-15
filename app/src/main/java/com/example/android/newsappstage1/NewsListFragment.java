@@ -1,5 +1,7 @@
 package com.example.android.newsappstage1;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
@@ -8,6 +10,7 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,6 +23,15 @@ public class NewsListFragment extends ListFragment
 
     private NewsListAdapter mNewsListAdapter;
     private ArrayList<News> mNewsList = new ArrayList<>();
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+
+        //If a news is tapped, then an intent will open the link of the news
+        News news  = (News) getListView().getItemAtPosition(position);
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(news.getNewsUrl())));
+    }
 
     //Fragment
     @Override
