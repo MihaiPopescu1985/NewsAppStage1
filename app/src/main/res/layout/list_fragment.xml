@@ -12,6 +12,10 @@
     <TextView
         android:id="@id/android:empty"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="24sp" />
 
 </LinearLayout>
