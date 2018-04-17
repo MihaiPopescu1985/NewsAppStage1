@@ -32,7 +32,11 @@ public class NewsLoader extends AsyncTaskLoader<String> {
         URL url = null;
 
         try {
-            url = new URL("http://content.guardianapis.com/search?q=debates&api-key=test");
+            //Following are links for testing
+            //https://content.guardianapis.com/search?tag=environment/recycling&api-key=test&show-tags=contributor
+            //https://content.guardianapis.com/search?q=debate&tag=politics/politics/contributor&from-date=2014-01-01&api-key=test
+            //http://content.guardianapis.com/search?q=debates&api-key=test
+            url = new URL("https://content.guardianapis.com/search?tag=environment/recycling&api-key=test&show-tags=contributor");
         } catch (MalformedURLException e) {
             e.printStackTrace();
             return "Url error !";
@@ -70,7 +74,11 @@ public class NewsLoader extends AsyncTaskLoader<String> {
             if (stream != null) {
                 result = readStream(stream);
             }
-        } finally {
+        }
+        catch(RuntimeException e) {
+            return "Connection timed out.";
+        }
+        finally {
             // Close Stream and disconnect HTTPS connection.
             if (stream != null) {
                 stream.close();

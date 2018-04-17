@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
+        android:text="@string/unknown_error_please_restart_the_app"
         android:textColor="@android:color/holo_red_light"
         android:textSize="24sp" />
 

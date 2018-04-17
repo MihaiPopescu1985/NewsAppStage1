@@ -73,10 +73,21 @@ public class NewsListFragment extends ListFragment
 
     @Override
     public void onLoadFinished(Loader<String> loader, String data) {
-        if (data.matches(getString(R.string.url_error)) || data.matches(getString(R.string.download_error)))
-            setEmptyText(data);
-        else
+
+        if (data.matches("Connection timed out."))
+            setEmptyText(getString(R.string.connection_timed_out));
+
+        if (data.matches("Url error !"))
+            setEmptyText(getString(R.string.internal_error));
+
+        if (data.matches("Downloading error !"))
+            setEmptyText(getString(R.string.please_verify_your_internet_connection));
+
+        if (!data.matches("Url error !") &&
+                !data.matches("Downloading error !") &&
+                !data.matches("Connection timed out."))
             extractNews(data);
+
         mNewsListAdapter.addAll(mNewsList);
     }
 
@@ -92,6 +103,11 @@ public class NewsListFragment extends ListFragment
             JSONObject rootJsonObject = baseJsonObject.getJSONObject("response");
             JSONArray newsJsonArray = rootJsonObject.getJSONArray("results");
 
+            if (newsJsonArray.length() == 0) {
+                setEmptyText(getString(R.string.no_news_found));
+                return;
+            }
+
             for (int i = 0; i < newsJsonArray.length(); i++) {
 
                 JSONObject currentNews = newsJsonArray.getJSONObject(i);
@@ -100,14 +116,10 @@ public class NewsListFragment extends ListFragment
                 String webPublicationDate = currentNews.getString("webPublicationDate");
                 String webTitle = currentNews.getString("webTitle");
                 String webUrl = currentNews.getString("webUrl");
-                String webAuthor;
 
-                try {
-                    webAuthor = currentNews.getString("webAuthor");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    webAuthor = "";
-                }
+                JSONArray newsTagsArray = currentNews.getJSONArray("tags");
+                JSONObject newsAuthor = newsTagsArray.getJSONObject(0);
+                String webAuthor = newsAuthor.getString("webTitle");
 
                 mNewsList.add(new News(
                         sectionName,
@@ -118,7 +130,7 @@ public class NewsListFragment extends ListFragment
             }
         } catch (JSONException e) {
             e.printStackTrace();
-            setEmptyText("Error parsing server response.");
+            setEmptyText(getString(R.string.error_parsing_server_response));
         }
     }
 }

@@ -2,4 +2,10 @@
     <string name="app_name">NewsAppStage1</string>
     <string name="url_error">Url error !</string>
     <string name="download_error">Downloading error !</string>
+    <string name="unknown_error_please_restart_the_app">Unknown error.\nPlease restart the app.</string>
+    <string name="error_parsing_server_response">Error parsing server response.\nPlease try a different link.</string>
+    <string name="no_news_found">No news found\nplease try a different query.</string>
+    <string name="please_verify_your_internet_connection">Please verify your internet connection\nand restart the app.</string>
+    <string name="internal_error">Internal error, please restart the app.\nIf the error persists,\nplease consider reinstalling the app.</string>
+    <string name="connection_timed_out">Connection timed out.\nPlease try again later.</string>
 </resources>
