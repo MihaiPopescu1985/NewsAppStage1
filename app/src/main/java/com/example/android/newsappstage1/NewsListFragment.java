@@ -73,20 +73,10 @@ public class NewsListFragment extends ListFragment
 
     @Override
     public void onLoadFinished(Loader<String> loader, String data) {
-
-        if (data.matches(getString(R.string.url_error)))
-            setEmptyText("Internal error, please restart the app.\n" +
-                    "If the error persists, \n" +
-                    "please consider reinstalling the app.");
-
-        if (data.matches(getString(R.string.download_error)))
-            setEmptyText("Please verify your internet connection\n" +
-                    " and restart the app.");
-
-        if (!data.matches(getString(R.string.url_error)) &&
-                !data.matches(getString(R.string.download_error)))
+        if (data.matches(getString(R.string.url_error)) || data.matches(getString(R.string.download_error)))
+            setEmptyText(data);
+        else
             extractNews(data);
-
         mNewsListAdapter.addAll(mNewsList);
     }
 
@@ -105,11 +95,26 @@ public class NewsListFragment extends ListFragment
             for (int i = 0; i < newsJsonArray.length(); i++) {
 
                 JSONObject currentNews = newsJsonArray.getJSONObject(i);
+
+                String sectionName = currentNews.getString("sectionName");
+                String webPublicationDate = currentNews.getString("webPublicationDate");
+                String webTitle = currentNews.getString("webTitle");
+                String webUrl = currentNews.getString("webUrl");
+                String webAuthor;
+
+                try {
+                    webAuthor = currentNews.getString("webAuthor");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    webAuthor = "";
+                }
+
                 mNewsList.add(new News(
-                        currentNews.getString("sectionName"),
-                        currentNews.getString("webPublicationDate"),
-                        currentNews.getString("webTitle"),
-                        currentNews.getString("webUrl")));
+                        sectionName,
+                        webPublicationDate,
+                        webTitle,
+                        webUrl,
+                        webAuthor));
             }
         } catch (JSONException e) {
             e.printStackTrace();

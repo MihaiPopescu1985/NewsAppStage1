@@ -1,20 +1,15 @@
 package com.example.android.newsappstage1;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.zip.Inflater;
 
 /**
  * Created by Mihai on 12.04.2018.
@@ -41,6 +36,9 @@ public class NewsListAdapter extends ArrayAdapter<News> {
 
         textView = convertView.findViewById(R.id.news_title_text_view);
         textView.setText(news.getNewsTitle());
+
+        textView = convertView.findViewById(R.id.news_author_text_view);
+        textView.setText(news.getNewsAuthor());
 
         textView = convertView.findViewById(R.id.news_date_text_view);
         textView.setText(news.getNewsPublicationDate());

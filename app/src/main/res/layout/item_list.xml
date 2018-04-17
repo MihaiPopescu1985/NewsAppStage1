@@ -7,6 +7,7 @@
     <TextView
         android:id="@+id/news_section_text_view"
         style="@style/ListItemsStyle"
+        android:textColor="@android:color/darker_gray"
         android:textSize="16sp" />
 
     <TextView
@@ -15,17 +16,38 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/news_date_text_view"
-        style="@style/ListItemsStyle"
-        android:gravity="end"
-        android:textAlignment="viewEnd" />
-
-    <View
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginLeft="18dp"
-        android:layout_marginRight="18dp"
-        android:background="@android:color/black" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!--Author field as required from the last reviewer, although
+        is not available in the JSON file-->
+        <TextView
+            android:id="@+id/news_author_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:text=""
+            android:textColor="@android:color/darker_gray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/news_date_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:textAlignment="viewEnd"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="16sp" />
+
+    </LinearLayout>
 
 </LinearLayout>

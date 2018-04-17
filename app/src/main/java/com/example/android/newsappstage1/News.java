@@ -10,10 +10,14 @@ public class News {
     private String mPublicationDate;
     private String mTitle;
     private String mUrl;
+    private String mAuthor;
 
     //Constructor
-    public News(String sectionName, String publicationDate,
-                String title, String url) {
+    public News(String sectionName,
+                String publicationDate,
+                String title,
+                String url,
+                String author) {
 
         mSectionName = sectionName;
         mTitle = title;
@@ -21,6 +25,8 @@ public class News {
 
         //Sets only the first 10 letters of the date
         mPublicationDate = publicationDate.substring(0, 10);
+
+        mAuthor = author;
     }
 
     //Getter methods
@@ -38,5 +44,9 @@ public class News {
 
     public String getNewsUrl() {
         return mUrl;
+    }
+
+    public String getNewsAuthor() {
+        return mAuthor;
     }
 }
