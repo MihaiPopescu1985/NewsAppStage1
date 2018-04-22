@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NewsAppStage1</string>
+    <string name="app_name">NewsAppStage2</string>
     <string name="url_error">Url error !</string>
     <string name="download_error">Downloading error !</string>
     <string name="unknown_error_please_restart_the_app">Unknown error.\nPlease restart the app.</string>
@@ -8,4 +8,13 @@
     <string name="please_verify_your_internet_connection">Please verify your internet connection\nand restart the app.</string>
     <string name="internal_error">Internal error, please restart the app.\nIf the error persists,\nplease consider reinstalling the app.</string>
     <string name="connection_timed_out">Connection timed out.\nPlease try again later.</string>
+    <string name="section">Section</string>
+    <string name="politics">Politics</string>
+    <string name="money">Money</string>
+    <string name="social">Social</string>
+    <string name="technology">Technology</string>
+    <string name="date">Date</string>
+    <string name="today">Today</string>
+    <string name="past_week">Past week</string>
+    <string name="settings">Settings</string>
 </resources>

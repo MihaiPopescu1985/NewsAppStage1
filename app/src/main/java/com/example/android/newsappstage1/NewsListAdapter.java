@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Created by Mihai on 12.04.2018.
@@ -29,10 +30,10 @@ public class NewsListAdapter extends ArrayAdapter<News> {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.item_list, null);
+            convertView = Objects.requireNonNull(inflater).inflate(R.layout.item_list, parent, false);
         }
         TextView textView = convertView.findViewById(R.id.news_section_text_view);
-        textView.setText(news.getNewsSectionName());
+        textView.setText(Objects.requireNonNull(news).getNewsSectionName());
 
         textView = convertView.findViewById(R.id.news_title_text_view);
         textView.setText(news.getNewsTitle());

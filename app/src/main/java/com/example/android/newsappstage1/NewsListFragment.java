@@ -3,11 +3,13 @@ package com.example.android.newsappstage1;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -17,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class NewsListFragment extends ListFragment
         implements LoaderManager.LoaderCallbacks<String> {
@@ -37,10 +40,12 @@ public class NewsListFragment extends ListFragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
 
+        //Setting the menu
+        setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
         getLoaderManager().initLoader(0, null, this).forceLoad();
 
-        mNewsListAdapter = new NewsListAdapter(getContext(), R.layout.item_list, mNewsList);
+        mNewsListAdapter = new NewsListAdapter(Objects.requireNonNull(getContext()), R.layout.item_list, mNewsList);
         setListAdapter(mNewsListAdapter);
     }
 
@@ -54,25 +59,25 @@ public class NewsListFragment extends ListFragment
 
     //Fragment
     @Override
-    public void onStart() {
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-        super.onStart();
+        int id = item.getItemId();
+        if (id == R.id.settings) {
+            Intent settingsIntent = new Intent(this.getContext(), SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
-    //Fragment
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
+    @NonNull
     @Override
     public Loader<String> onCreateLoader(int id, Bundle args) {
-
         return new NewsLoader(getContext());
     }
 
     @Override
-    public void onLoadFinished(Loader<String> loader, String data) {
+    public void onLoadFinished(@NonNull Loader<String> loader, String data) {
 
         if (data.matches("Connection timed out."))
             setEmptyText(getString(R.string.connection_timed_out));
@@ -92,8 +97,7 @@ public class NewsListFragment extends ListFragment
     }
 
     @Override
-    public void onLoaderReset(Loader<String> loader) {
-
+    public void onLoaderReset(@NonNull Loader<String> loader) {
     }
 
     private void extractNews(String data) {
@@ -117,10 +121,14 @@ public class NewsListFragment extends ListFragment
                 String webTitle = currentNews.getString("webTitle");
                 String webUrl = currentNews.getString("webUrl");
 
-                JSONArray newsTagsArray = currentNews.getJSONArray("tags");
-                JSONObject newsAuthor = newsTagsArray.getJSONObject(0);
-                String webAuthor = newsAuthor.getString("webTitle");
-
+                String webAuthor;
+                try {
+                    JSONArray newsTagsArray = currentNews.getJSONArray("tags");
+                    JSONObject newsAuthor = newsTagsArray.getJSONObject(0);
+                    webAuthor = newsAuthor.getString("webTitle");
+                } catch (JSONException e) {
+                    webAuthor = "";
+                }
                 mNewsList.add(new News(
                         sectionName,
                         webPublicationDate,

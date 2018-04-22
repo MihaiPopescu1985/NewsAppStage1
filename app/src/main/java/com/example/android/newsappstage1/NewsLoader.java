@@ -1,6 +1,8 @@
 package com.example.android.newsappstage1;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.content.AsyncTaskLoader;
 
 import java.io.BufferedReader;
@@ -11,6 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.Objects;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -28,15 +31,23 @@ public class NewsLoader extends AsyncTaskLoader<String> {
     @Override
     public String loadInBackground() {
 
-        String toBeParsed = "";
-        URL url = null;
+        String toBeParsed;
+        URL url;
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String urlString = preferences.getString("category", null);
+        if (Objects.requireNonNull(urlString).matches("Politics"))
+            urlString = "http://content.guardianapis.com/search?from-date=2018-01-01&section=politics&show-tags=contributor&api-key=test";
+        else if (urlString.matches("Money"))
+            urlString = "http://content.guardianapis.com/search?from-date=2018-01-01&section=money&show-tags=contributor&api-key=test";
+        else if (urlString.matches("Social"))
+            urlString = "http://content.guardianapis.com/search?from-date=2018-01-01&section=social&show-tags=contributor&api-key=test";
+        else if (urlString.matches("Technology"))
+            urlString = "http://content.guardianapis.com/search?from-date=2018-01-01&section=technology&show-tags=contributor&api-key=test";
 
         try {
-            //Following are links for testing
-            //https://content.guardianapis.com/search?tag=environment/recycling&api-key=test&show-tags=contributor
-            //https://content.guardianapis.com/search?q=debate&tag=politics/politics/contributor&from-date=2014-01-01&api-key=test
-            //http://content.guardianapis.com/search?q=debates&api-key=test
-            url = new URL("https://content.guardianapis.com/search?tag=environment/recycling&api-key=test&show-tags=contributor");
+            url = new URL(urlString);
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
             return "Url error !";
