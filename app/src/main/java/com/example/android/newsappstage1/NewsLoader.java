@@ -13,7 +13,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.Objects;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -36,7 +35,11 @@ public class NewsLoader extends AsyncTaskLoader<String> {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         String urlString = preferences.getString("category", null);
-        if (Objects.requireNonNull(urlString).matches("Politics"))
+
+        if (urlString == null)
+            urlString = "Politics";
+
+        if (urlString.matches("Politics"))
             urlString = "http://content.guardianapis.com/search?from-date=2018-01-01&section=politics&show-tags=contributor&api-key=test";
         else if (urlString.matches("Money"))
             urlString = "http://content.guardianapis.com/search?from-date=2018-01-01&section=money&show-tags=contributor&api-key=test";
